@@ -1,5 +1,4 @@
-#JCP 86,1354 "Molecular dynamis of a model S N 2 reaction in water"のモデルを使いました
-#モデルは1次元上に並んでいて間の長さのみでポテンシャルが決まる
+# cording: utf-8
 import numpy as np
 import scipy as sp
 import math
@@ -12,7 +11,7 @@ def getPotential(ab,bc):
     r_0 =[[1.776382, 1.776382, 2.094857],
         [1.785014, 1.785014, 2.186060]]
     rVal = [ab,bc,ab + bc]
-    E = np.zeros((2,3)) #(singlet及びtriplet)*(rab,rbc,rac)
+    E = np.zeros((2,3)) 
     Q = np.zeros(3)
     J = np.zeros(3)
     for i in [0,1]:
@@ -24,7 +23,7 @@ def getPotential(ab,bc):
     THETA = Q[0] + Q[1] + Q[2] - (J[0]*J[0]+ J[1]*J[1] + J[2]*J[2] - J[0]*J[1] - J[1]*J[2] - J[2]*J[0])**0.50 + 234.524671
     return THETA
 
-#ポテンシャル地形がうまくできているか確認するためのテスト
+
 def test():
     startPosition = 1.0
     endPosition = 4.0
@@ -46,4 +45,3 @@ def test():
     f.close()
 
 #test()
-#print("成功")

@@ -108,7 +108,7 @@ def make_exuv_config_file(title, water_model_name, water_dir, counter, cfg_file)
     nu, site_name_u, lu, ruu, epsu, zu, ilju = sn2_mol()
 
     #temp, dense  = 298.15, 0.03336			     # temp, dense
-    temp, dense  = 273.15, 0.03345			     # temp, dense
+    temp, dense  = 298.15, 0.03336			     # temp, dense
     d            = 1.0					     # d
 
     if counter == 0 : 

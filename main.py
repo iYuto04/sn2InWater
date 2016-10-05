@@ -4,9 +4,8 @@ import makeInputFile
 import contour
 import subprocess
 
-# zeroPoint = 63.27
 zeroPoint = 0
-numberOfGrid = 20 #numberOfGrid**2がメッシュの数になる
+numberOfGrid = 30 #numberOfGrid**2がメッシュの数になる
 contour.makePoints(numberOfGrid)
 print(contour.points)
 fileContour = open("forContour.dat","w") #ファイルをまっさらにする
@@ -21,7 +20,7 @@ for i in range(numberOfPoints):
     fileFreeEnergy.close()
     fileContour.write("{0:4.3f}".format(contour.points[i][0]))
     fileContour.write("   " + "{0:4.3f}".format(contour.points[i][1]))
-    fileContour.write("   " + str(freeEnergy + zeroPoint) + "\n")
+    fileContour.write("   " + str(freeEnergy) + "\n")
 fileContour.close()
 
 

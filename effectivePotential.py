@@ -3,9 +3,9 @@ import time
 
 t0 = time.clock()
 
-numberOfGrid = 30 #main.pyのnumberOfGridの数
+numberOfGrid = 30 #same with main.py
 #numberOfGrid = 2
-fileFreeEnergy = open("forContour.dat","r")
+fileFreeEnergy = open("freeEnergyContour.dat","r")
 #fileFreeEnergy = open("test.dat","r")
 fileEffective = open("effectivePotential.dat","w")
 numberOfPoints = (numberOfGrid + 1)*(numberOfGrid + 1)
@@ -13,7 +13,7 @@ print(numberOfPoints)
 for i in range(numberOfPoints):
     x, y, freeEnergy = map(float,fileFreeEnergy.readline().split())
     theta = sn2.getPotential(x,y)
-    theta += (freeEnergy - 63.27)
+    theta += freeEnergy
     fileEffective.write("{0:4.3f}".format(x))
     fileEffective.write("   " + "{0:4.3f}".format(y))
     fileEffective.write("   " + str(theta) + "\n")
