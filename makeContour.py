@@ -33,9 +33,11 @@ for i in range(var.numberOfGrit + 1):
 
 
 print(effective2d)
-interval = np.arange(-10,10,0.5)
+interval = np.arange(-10,30,1)
 CS = plt.contour(x2d, y2d, effective2d, interval)
 plt.clabel(CS, inline = 1, fontsize = 10)
+plt.xlim(1,6)
+plt.ylim(1,6)
 plt.savefig("effectivePotential.png")
 plt.show()
 
