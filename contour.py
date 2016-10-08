@@ -1,9 +1,10 @@
+import variables as var
 def makePoints(numberOfGrid):
 #x軸もy軸も同じスケールのものをつくる
-    startPosition = 1.5
-    endPosition = 4.0
-    gridOfRow = numberOfGrid
-    gridOfLine = numberOfGrid
+    startPosition = var.start
+    endPosition = var.end
+    gridOfRow = var.numberOfGrit
+    gridOfLine = var.numberOfGrit
     dtOfLine = (endPosition - startPosition) / gridOfRow
     dtOfRow = dtOfLine
 

@@ -4,6 +4,7 @@ import  numpy as np
 import variables as var
 
 f = open("effectivePotential.dat","r")
+filePhi = open("logLast10.dat")
 
 x1d = []
 y1d = []
@@ -11,6 +12,10 @@ x2d = np.zeros((var.numberOfGrit + 1,var.numberOfGrit + 1))
 y2d = np.zeros((var.numberOfGrit + 1,var.numberOfGrit + 1))
 effective1d = []
 effective2d = np.zeros((var.numberOfGrit + 1,var.numberOfGrit + 1))
+
+aArray = []
+bArray = []
+cArray = []
 
 
 while True:
@@ -22,7 +27,21 @@ while True:
         x1d.append(x)
         y1d.append(y)
         effective1d.append(effective)
-print(len(effective1d))
+
+while True:
+    readLine = filePhi.readline()
+    if readLine == "":
+        break
+    else:
+        a,b,c = map(float,readLine.split())
+        aArray.append(a)
+        bArray.append(b)
+        cArray.append(c)
+
+for i in range(len(aArray)):
+    cArray[i] = cArray[i] - bArray[i]
+    bArray[i] = bArray[i] - aArray[i]
+
 count = 0
 for i in range(var.numberOfGrit + 1):
     for j in range(var.numberOfGrit + 1):
@@ -32,13 +51,14 @@ for i in range(var.numberOfGrit + 1):
         count += 1
 
 
-print(effective2d)
+#print(effective2d)
 interval = np.arange(-10,30,1)
 CS = plt.contour(x2d, y2d, effective2d, interval)
 plt.clabel(CS, inline = 1, fontsize = 10)
-plt.xlim(1,6)
-plt.ylim(1,6)
-plt.savefig("effectivePotential.png")
+plt.plot(bArray,cArray,"o")
+plt.xlim(1,5)
+plt.ylim(1,5)
+#plt.savefig("effectivePotential.png")
 plt.show()
 
 
