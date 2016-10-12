@@ -1,12 +1,9 @@
 import potentialOfSN2 as sn2
 import time
+import  variables as var
 
-t0 = time.clock()
-
-numberOfGrid = 30 #same with main.py
-#numberOfGrid = 2
+numberOfGrid = var.numberOfGrit
 fileFreeEnergy = open("freeEnergyContour.dat","r")
-#fileFreeEnergy = open("test.dat","r")
 fileEffective = open("effectivePotential.dat","w")
 numberOfPoints = (numberOfGrid + 1)*(numberOfGrid + 1)
 print(numberOfPoints)
@@ -17,16 +14,3 @@ for i in range(numberOfPoints):
     fileEffective.write("{0:4.3f}".format(x))
     fileEffective.write("   " + "{0:4.3f}".format(y))
     fileEffective.write("   " + str(theta) + "\n")
-
-t1 = time.clock()
-diff = t1 - t0
-h = 0
-m = 0
-if diff >= 3600:
-    h = int(diff / 3600)
-    diff %=  3600
-if diff > 60:
-    m = int(diff / 60)
-    diff %= 60
-print("Time  "+ str(h) + "[h]"  + str(m) + "[m]" + str(diff) + "[s]")
-

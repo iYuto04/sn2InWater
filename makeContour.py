@@ -4,7 +4,7 @@ import  numpy as np
 import variables as var
 
 f = open("effectivePotential.dat","r")
-filePhi = open("logLast10.dat")
+filePhi = open("logPhi20.dat")
 
 x1d = []
 y1d = []
@@ -16,6 +16,10 @@ effective2d = np.zeros((var.numberOfGrit + 1,var.numberOfGrit + 1))
 aArray = []
 bArray = []
 cArray = []
+
+a5Array = []
+b5Array = []
+c5Array = []
 
 
 while True:
@@ -38,9 +42,12 @@ while True:
         bArray.append(b)
         cArray.append(c)
 
+
+
 for i in range(len(aArray)):
     cArray[i] = cArray[i] - bArray[i]
     bArray[i] = bArray[i] - aArray[i]
+
 
 count = 0
 for i in range(var.numberOfGrit + 1):
@@ -50,15 +57,18 @@ for i in range(var.numberOfGrit + 1):
         effective2d[i][j] = effective1d[count]
         count += 1
 
-
+#0.14112089  2.50681886  4.87366601
 #print(effective2d)
-interval = np.arange(-10,30,1)
+interval = np.arange(-10,50,1)
 CS = plt.contour(x2d, y2d, effective2d, interval)
-plt.clabel(CS, inline = 1, fontsize = 10)
+#plt.clabel(CS, inline = 1, fontsize = 10)
 plt.plot(bArray,cArray,"o")
-plt.xlim(1,5)
-plt.ylim(1,5)
-#plt.savefig("effectivePotential.png")
+plt.plot(bArray,cArray,linewidth = 1,color = "m")
+plt.plot(2.506-0.141,4.873-2.5068 - 2.51197913,"*",markersize = 8)
+plt.xlim(1.5,5)
+plt.ylim(1.5,5)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.savefig("stringInFreeEnergy.png")
 plt.show()
 
 

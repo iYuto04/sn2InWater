@@ -1,11 +1,10 @@
 #ストリング法を実装する前に溶媒和自由エネルギーの地形を見てみるためのプログラム
 
 import makeInputFile
-import contour
 import subprocess
+import variables as var
 
-zeroPoint = 0
-numberOfGrid = 30 #numberOfGrid**2がメッシュの数になる
+numberOfGrid = var.numberOfGrit#numberOfGrid**2がメッシュの数になる
 contour.makePoints(numberOfGrid)
 print(contour.points)
 fileContour = open("forContour.dat","w") #ファイルをまっさらにする

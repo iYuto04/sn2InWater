@@ -4,7 +4,7 @@ import copy
 import math
 import subprocess
 
-def cal_ele(ab, bc,zi):
+def cal_ele(ab, bc, zi):
     r = ab*ab - bc*bc
     print("reaction cordinate r is", r)
     alpha = np.zeros(3)
@@ -169,10 +169,9 @@ def get_rho(t):
     print("tanikannsanngo rho", rho)
 
 def makeInputFile(r_ab,r_bc):
-    switch = 1 #Rossky or hirata  
-    #global zi
+    switch = 1 #Rossky or hirata
     zi = np.zeros(3)
-
+    #global zi
 #r_ab = 2.3742
 #r_bc = 2.3699
 # r_ab = 2.0178
