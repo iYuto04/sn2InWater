@@ -3,7 +3,8 @@ import subprocess
 import matplotlib.pyplot as plt
 
 freeEnergyZeropoint = 75.98 - 5.582
-f = open("interpNewData.dat","r")
+# f = open("interpNewData.dat","r")
+f = open("logPhi20.dat", "r")
 x = []
 y = []
 while True:
