@@ -2,7 +2,8 @@ import  matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import  numpy as np
 import variables as var
-
+print(var.N_str)
+input()
 f = open("effectivePotential.dat","r")
 filePhi = open("logLast25.dat")
 
@@ -43,7 +44,8 @@ while True:
         bArray.append(b)
         cArray.append(c)
 filePhi.close()
-
+print(aArray)
+input()
 alpha = []
 s_i = [0 for i in range(var.N_str + 1)]
 newArrayOfA = []
@@ -127,8 +129,8 @@ interval = np.arange(-10,50,1)
 CS = plt.contour(x2d, y2d, effective2d, interval)
 #plt.clabel(CS, inline = 1, fontsize = 10)
 
+plt.plot(newArrayOfB,newArrayOfC,linewidth = 1,color = "m")
 plt.plot(newArrayOfB,newArrayOfC,"o")
-# plt.plot(newArrayOfB,newArrayOfC,linewidth = 1,color = "y")
 
 #plt.plot(bArray,cArray,"o")
 #plt.plot(bArray,cArray,linewidth = 1,color = "m")
