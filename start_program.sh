@@ -1,0 +1,9 @@
+#! bin/zsh
+../../src/exuv/exuv tip3p_0.dat
+../../src/exuv/exuv tip3p_1.dat
+../../src/exuv/exuv tip3p_2.dat
+../../src/exuv/exuv tip3p_3.dat
+../../src/exuv/exuv tip3p_4.dat
+../../src/exuv/exuv tip3p_6.dat
+../../src/exuv/exuv tip3p_8.dat
+../../src/exuv/exuv tip3p_10.dat
