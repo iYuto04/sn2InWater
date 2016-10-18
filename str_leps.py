@@ -21,8 +21,8 @@ freeEnergyZeropoint = 75.98 - 5.582
 
 
 #initialize
-ab = np.linspace(0.3,4,N)
-bc = np.linspace(0.3,4,N)
+ab = np.linspace(1.5,6,N)
+bc = np.linspace(1.5,6,N)
 
 
 D = [[234.524674, 234.524674,  64.925971],
@@ -89,7 +89,6 @@ def get_norm(x1,y1,z1,x2,y2,z2):
     return norm
 
 def get_potential(x1,y1,z1,x2,y2,z2,x3,y3,z3):
-#def get_potential(x1,y1,z1,x2,y2,z2,x3,y3,z3):
     r1 = get_norm(x1,y1,z1,x2,y2,z2)
     r2 = get_norm(x2,y2,z2,x3,y3,z3)
     r3 = get_norm(x1,y2,z3,x3,y3,z3)
@@ -271,83 +270,6 @@ def isou():
     for i in range(N_str+1):
         pote_val[i] = get_potential(phi[i][0],phi[i][1],phi[i][2],phi[i][3],phi[i][4],phi[i][5],phi[i][6],phi[i][7],phi[i][8])
 
-def saddle():
-    naiseki = 0.0
-    #count_s = 0
-    #difference_s = 0.0
-    #d_s_old = 10000
-    V_phi = np.zeros(N_str+1)
-    phi_s_old = np.zeros(9)
-    tau = np.zeros(9)
-    l_s = 0.0
-    for i in range(N_str+1):
-        V_phi[i] = get_potential(phi[i][0], phi[i][1],phi[i][2],phi[i][3],phi[i][4],phi[i][5],phi[i][6],phi[i][7],phi[i][8])
-        phi_s_V = max(V_phi)
-    
-    for i in range(N_str+1):
-        if V_phi[i] == phi_s_V:
-            s = i+1 #ポテンシャルが最大となるインデックス
-    l = s-1 #sのひとつ左の点
-    r = s+1 #sのひとつ右の点
-    print("s,r,l")
-    print(s,r,l)
-    for i in range(9):
-        l_s += (phi[r][i] - phi[l][i])*(phi[r][i] - phi[l][i])
-    l_s = l_s**0.50
-    print("l_s is ", l_s)
-    for i in range(9):
-        tau[i] = (phi[r][i] - phi[l][i])/l_s
-    print("in saddle function")
-    print(tau)
-    n_step = int(math.log(N_str**4))
-    print("n_step is")
-    print(n_step)
-    #n_step = 12 
-    for i in range(9):
-        phi_s[i] = phi[s][i]
-    for step in range(n_step):
-    #print("phi_s")
-    #print(phi_s)
-    #get_nabla_THETA(phi_s[0], phi_s[1], phi_s[2], phi_s[3], phi_s[4], phi_s[5], phi_s[6], phi_s[7], phi_s[8])
-    #print("saddle point nabla_theta")
-    #print(nabla_theta)
-    #for step in range(n_step):
-        #runge_kutta_saddle(tau[0],tau[1],tau[2],tau[3],tau[4],tau[5],tau[6],tau[7],tau[8])
-        get_nabla_THETA(phi_s[0], phi_s[1], phi_s[2], phi_s[3], phi_s[4], phi_s[5], phi_s[6], phi_s[7], phi_s[8])
-    # #while True:
-        for i in range(3): #cl,ch3,cl'
-            for j in range(3): #x,y,z
-                naiseki += nabla_theta[i][j]*tau[3*i+j]
-        for i in range(3):
-            for j in range(3):
-                phi_s[3*i+j] = phi_s[3*i+j] +dt*( -nabla_theta[i][j] + 2.0*naiseki*tau[3*i+j])
-                #print("変異は", dt*(-nabla_theta[i][j] + 2.0*(nabla_theta[i][j]*tau[3*i+j])*tau[3*i+j]))
-        naiseki = 0.0
-        #print( get_potential(phi_s[0], phi_s[1], phi_s[2], phi_s[3], phi_s[4], phi_s[5], phi_s[6], phi_s[7], phi_s[8]))
-        # for i in range(9):
-        #     difference_s += (phi_s[i] - phi_s_old[i])**2.0
-        # difference_s = difference_s**0.50
-        # d_s= difference_s/dt
-        # print(d_s)
-
-        # if  d_s > d_s_old:
-        #     break
-        # d_s_old = d_s
-        # phi_s_old = copy.deepcopy(phi_s)
-        # difference_s = 0.0
-        # count_s += 1
-            # print("i is" ,i)
-            # print("j is",j)
-            # print(nabla_theta[i][j])
-    print("the potential at saddle point")
-    theta_val = get_potential(phi_s[0], phi_s[1], phi_s[2], phi_s[3], phi_s[4], phi_s[5], phi_s[6], phi_s[7], phi_s[8]) 
-    theta_hashi = get_potential(phi[0][0],phi[0][1],phi[0][2],phi[0][3],phi[0][4],phi[0][5],phi[0][6],phi[0][7],phi[0][8])
-    print(theta_val)
-    print(phi_s)
-    print("barrier height is")
-    print(theta_val - theta_hashi)
-    # print("count_s is ")
-    # print(count_s)
 
 def plot_pote():
     plt_x = np.zeros(N_str+1)
@@ -400,25 +322,6 @@ def plot_pote():
     plt.savefig("plot_pote.png")
     plt.show()
 
-def initEndPoint():
-    phi[0][3] = 1.776
-    phi[0][6] = phi[0][3] + 100
-    phi[N_str][3] = 100
-    phi[N_str][6] = phi[N_str][3] + 1.776
-
-def initNextPoint():
-    phi[1][3] = 1.776
-    phi[1][6] = phi[1][3] + 10
-    phi[N_str - 1][3] = 10
-    phi[N_str - 1][6] = phi[N_str - 1][3] + 1.776
-
-
-
-
-# print("length")
-# print(get_norm(0,0,0,1,1,0))
-# print("end")
-#-----------------------------------------------------------------------------------------
 for i in range(N):
     E1_ab[i] = D[0][0]*(1.0 - math.exp(-beta[0][0]*(ab[i]-r_0[0][0])))**2.0 -D[0][0]
     E3_ab[i] = D[1][0]*(1.0 + math.exp(-beta[1][0]*(ab[i]-r_0[1][0])))**2.0 -D[1][0]
@@ -430,7 +333,6 @@ for i in range(N):
     Q_bc[i] = (E1_bc[i] + E3_bc[i])/2.0
     J_bc[i] = (E1_bc[i] - E3_bc[i])/2.0
 
-f = open("output.dat","w")
 
 for i in range(N):
     for j in range(N):
@@ -457,21 +359,21 @@ for i in range(N):
 
 
 
-# interval = np.arange(-10,30,5)
-# CS = plt.contour(ab,bc,theta_leps,interval)
-# plt.clabel(CS, inline = 1, fontsize = 10)
-# plt.xlim(1,4)
-# plt.ylim(1,4)
-
-# print(theta_leps)
-
-
-#等高線を書くのに必要な部分---------------
 interval = np.arange(-10,30,5)
 CS = plt.contour(ab,bc,theta_leps,interval)
 plt.clabel(CS, inline = 1, fontsize = 10)
 plt.xlim(1,4)
 plt.ylim(1,4)
+
+# print(theta_leps)
+
+
+#等高線を書くのに必要な部分---------------
+# interval = np.arange(-10,30,5)
+# CS = plt.contour(ab,bc,theta_leps,interval)
+# plt.clabel(CS, inline = 1, fontsize = 10)
+# plt.xlim(1,4)
+# plt.ylim(1,4)
 #------------------------------------------
 # plt.savefig("contour.png")
 #plt.show()
@@ -482,7 +384,6 @@ plt.ylim(1,4)
 #ここからストリング法
 #--------------------------------------------------------------------------------------------------------
 dt = 0.001
-dt = 0.0001
 #dt = max(N_str**(-1),0.2)*0.05
 print("dt is")
 print(dt)
@@ -684,6 +585,7 @@ for i in range(N_str + 1):
     for j in range(3):
         f.write(str(phi[i][3 * j]) + "  ")
     f.write(("\n"))
+f.close()
 
 
 #plot()
@@ -691,14 +593,11 @@ for i in range(N_str + 1):
 isou()
 print("potential")
 print(pote_val)
-saddle()
-plot()
+#plot()
 
 #isou()
 print("potential")
 print(pote_val)
-#saddle()
-#plot_saddle(count)
 #plot_pote()
 # print ("dt is ")
 # print (dt)
@@ -708,6 +607,4 @@ print(count)
 # print("parameter for rism")
 # for i in range(N_str+1):
 #     print(phi[i][3]-phi[i][0], phi[i][6]-phi[i][3], phi[i][6]-phi[i][0])
-print("parameter for rism")
-for i in range(N_str+1):
-    print(phi[i][3]-phi[i][0], phi[i][6]-phi[i][3], phi[i][6]-phi[i][0])
+
